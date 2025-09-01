@@ -1,103 +1,308 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: "Segoe UI", Arial, sans-serif;
-  background: linear-gradient(135deg, #232526 0%, #414345 100%);
+  font-family: "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
+  background: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 25%, #2d1b2e 50%, #1e1e2f 75%, #0f0f23 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(75, 0, 130, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(25, 25, 112, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(0, 0, 0, 0.3) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .counter-container {
-  background: linear-gradient(135deg, #232526 0%, #485563 100%);
-  border-radius: 2rem;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.22),
-    0 1.5px 8px rgba(80, 255, 180, 0.08);
-  padding: 2.7rem 2.2rem 2.2rem 2.2rem;
-  max-width: 370px;
-  width: 92vw;
+  background: rgba(20, 20, 20, 0.8);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border-radius: 2.5rem;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.5),
+    0 8px 32px rgba(255, 255, 255, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  padding: 3rem 2.5rem;
+  max-width: 400px;
+  width: 90vw;
   text-align: center;
-  border: 1.5px solid rgba(80, 255, 180, 0.1);
- 
+  position: relative;
+  transform: translateY(0);
+  animation: float 6s ease-in-out infinite;
+}
+
+.counter-container::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, 
+    #8a2be2, #4b0082, #191970, #2e2e2e, #483d8b, #8a2be2);
+  background-size: 300% 300%;
+  border-radius: 2.5rem;
+  z-index: -1;
+  animation: borderGlow 3s ease infinite;
+  opacity: 0.6;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(1deg); }
+}
+
+@keyframes borderGlow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
 .counter-container h1 {
-  margin-bottom: 1.5rem;
-  font-size: 2.2rem;
-  color: #e6ffe6;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.22);
-  letter-spacing: 0.07em;
+  margin-bottom: 2rem;
+  font-size: 2.8rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+  letter-spacing: 0.05em;
+  position: relative;
+}
+
+.counter-container h1::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #8a2be2, #4b0082);
+  border-radius: 2px;
+  animation: pulseWidth 2s ease-in-out infinite;
+}
+
+@keyframes pulseWidth {
+  0%, 100% { width: 60px; opacity: 1; }
+  50% { width: 80px; opacity: 0.7; }
 }
 
 .counter-display {
-  font-size: 4rem;
-  font-weight: bold;
-  margin-bottom: 1.5rem;
-  color: #38f9d7;
+  font-size: 5rem;
+  font-weight: 900;
+  margin-bottom: 2.5rem;
+  background: linear-gradient(135deg, #9370db 0%, #8a2be2 25%, #4b0082 50%, #6a5acd 75%, #9932cc 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textGradient 3s ease infinite;
   letter-spacing: 0.1em;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+  text-shadow: 0 0 30px rgba(147, 112, 219, 0.5);
+  position: relative;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  transition: transform 0.3s ease;
+}
+
+.counter-display:hover {
+  transform: scale(1.05);
+}
+
+@keyframes textGradient {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
 .counter-buttons {
   display: flex;
   justify-content: center;
-  gap: 2rem;
-  margin-bottom: 1.2rem;
+  gap: 3rem;
+  margin-bottom: 2rem;
 }
 
 .counter-btn {
-  background: linear-gradient(135deg, #a8ff78 0%, #78ffd6 100%);
-  color: #1b3a1b;
-  border: none;
+  background: rgba(40, 40, 40, 0.7);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  border: 2px solid rgba(147, 112, 219, 0.4);
   border-radius: 50%;
-  width: 3.5rem;
-  height: 3.5rem;
-  font-size: 2rem;
-  font-weight: bold;
+  width: 4.5rem;
+  height: 4.5rem;
+  font-size: 2.5rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: background 0.2s, transform 0.1s;
-  box-shadow: 0 2px 8px rgba(120, 255, 214, 0.12);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
 }
+
+.counter-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(147, 112, 219, 0.4), transparent);
+  transition: left 0.5s;
+}
+
+.counter-btn:hover {
+  transform: translateY(-5px) scale(1.1);
+  box-shadow: 
+    0 15px 40px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border-color: rgba(147, 112, 219, 0.7);
+  background: rgba(60, 60, 60, 0.8);
+}
+
+.counter-btn:hover::before {
+  left: 100%;
+}
+
 .counter-btn:active {
-  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-  color: #0f1e0f;
-  transform: scale(0.95);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 
+    0 5px 20px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .reset-btn {
-  background: linear-gradient(135deg, #b7ffb2 0%, #b2fefa 100%);
-  color: #1b3a1b;
-  border: none;
-  border-radius: 1rem;
-  padding: 0.7rem 2.2rem;
-  font-size: 1.1rem;
-  font-weight: 500;
+  background: rgba(30, 30, 30, 0.8);
+  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
+  color: #fff;
+  border: 2px solid rgba(147, 112, 219, 0.3);
+  border-radius: 2rem;
+  padding: 1rem 3rem;
+  font-size: 1.2rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s, transform 0.1s;
-  margin-top: 0.5rem;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  margin-top: 1rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
+
+.reset-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(147, 112, 219, 0.3), transparent);
+  transition: left 0.6s;
+}
+
+.reset-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 
+    0 12px 35px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border-color: rgba(147, 112, 219, 0.6);
+  background: rgba(50, 50, 50, 0.9);
+}
+
+.reset-btn:hover::before {
+  left: 100%;
+}
+
 .reset-btn:active {
-  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-  color: #0f1e0f;
-  transform: scale(0.97);
+  transform: translateY(-1px);
+  box-shadow: 
+    0 5px 20px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 @media (max-width: 600px) {
   .counter-container {
-    padding: 1.2rem 0.5rem 1.5rem 0.5rem;
-    max-width: 98vw;
+    padding: 2rem 1.5rem;
+    max-width: 95vw;
+    border-radius: 2rem;
   }
+  
+  .counter-container h1 {
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+  }
+  
   .counter-display {
-    font-size: 2.7rem;
+    font-size: 3.5rem;
+    margin-bottom: 2rem;
   }
+  
+  .counter-buttons {
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  
   .counter-btn {
-    width: 2.5rem;
-    height: 2.5rem;
-    font-size: 1.3rem;
+    width: 3.5rem;
+    height: 3.5rem;
+    font-size: 2rem;
   }
+  
   .reset-btn {
-    padding: 0.5rem 1.2rem;
+    padding: 0.8rem 2rem;
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .counter-container {
+    padding: 1.5rem 1rem;
+  }
+  
+  .counter-container h1 {
+    font-size: 1.8rem;
+  }
+  
+  .counter-display {
+    font-size: 3rem;
+  }
+  
+  .counter-buttons {
+    gap: 1.5rem;
+  }
+  
+  .counter-btn {
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.5rem;
+  }
+  
+  .reset-btn {
+    padding: 0.7rem 1.5rem;
     font-size: 1rem;
   }
 }
