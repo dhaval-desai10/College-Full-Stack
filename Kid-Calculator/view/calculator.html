@@ -1,43 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Kid Calculator</title>
+        <link rel="stylesheet" href="/style.css" />
+    </head>
+    <body>
+        <div class="bg-anim" aria-hidden="true"></div>
+        <main class="container<% if (error) { %> has-error<% } %>">
+            <header class="brand">
+                <div class="badge">KC</div>
+                <h1>
+                    Kid Calculator
+                    <span class="emoji" role="img" aria-label="abacus">🧮</span>
+                </h1>
+                <p class="tagline">Make math magical ✨</p>
+            </header>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kid Calculator</title>
-    <link rel="stylesheet" href="/style.css">
-</head>
+            <form action="/calculate" method="POST" autocomplete="off" class="calc-form">
+                <div class="input-row">
+                    <input
+                        type="text"
+                        name="num1"
+                        placeholder="First number"
+                        inputmode="decimal"
+                        required
+                        aria-label="First number"
+                    />
 
-<body>
-    <div class="container">
-        <h1>Kid Calculator <span aria-label="abacus" role="img"></span>🧮</span></h1>
-        <p style="color:#ffb347; font-size:1.1em; margin-bottom:18px;">Let's have fun with numbers!</p>
-        <form action="/calculate" method="POST" autocomplete="off" style="margin-bottom: 18px;">
-            <div style="display:flex; justify-content:center; align-items:center; gap:10px; flex-wrap:wrap;">
-                <input type="text" name="num1" placeholder="First number" required aria-label="First number">
-                <select name="operation" id="operation" aria-label="Operation">
-                    <option value="add">+</option>
-                    <option value="subtract">-</option>
-                    <option value="multiply">×</option>
-                    <option value="divide">÷</option>
-                </select>
-                <input type="text" name="num2" placeholder="Second number" required aria-label="Second number">
-            </div>
-            <button type="submit" style="margin-top:18px;">Calculate</button>
-        </form>
-        <% if (result !==null) { %>
-            <div class="result">🎉 Result: <strong>
-                    <%= result %>
-                </strong></div>
-            <% } %>
-                <% if (error) { %>
-                    <div class="error">⚠️ <%= error %>
+                    <div class="op-select">
+                        <label for="operation" class="sr-only">Operation</label>
+                        <select name="operation" id="operation" aria-label="Operation">
+                            <option value="add">＋ Add</option>
+                            <option value="subtract">－ Subtract</option>
+                            <option value="multiply">× Multiply</option>
+                            <option value="divide">÷ Divide</option>
+                        </select>
                     </div>
-                    <% } %>
-                        <div style="margin-top:30px; color:#888; font-size:0.95em;">
-                            <span>Tip: Only numbers are allowed. Have fun calculating!</span>
-                        </div>
-    </div>
-</body>
 
+                    <input
+                        type="text"
+                        name="num2"
+                        placeholder="Second number"
+                        inputmode="decimal"
+                        required
+                        aria-label="Second number"
+                    />
+                </div>
+
+                <button type="submit" class="cta">Calculate</button>
+            </form>
+
+            <% if (result !== null) { %>
+                <section class="panel success" role="status" aria-live="polite">
+                    <div class="panel-title">Result</div>
+                    <div class="panel-value"><%= result %></div>
+                </section>
+            <% } %>
+
+            <% if (error) { %>
+                <section class="panel error" role="alert">
+                    <div class="panel-title">Oops!</div>
+                    <div class="panel-value"><%= error %></div>
+                </section>
+            <% } %>
+
+            <footer class="help">
+                Tip: Only numbers are allowed. You can use decimals too.
+            </footer>
+        </main>
+
+        <script src="/script.js"></script>
+    </body>
 </html>
